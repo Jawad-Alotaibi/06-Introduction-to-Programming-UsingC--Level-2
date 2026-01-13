@@ -4,11 +4,11 @@
 #include <cctype>
 
 using namespace std;
-void SaveDataFromVectorToFile(string fileName, vector<string> vFileContent);
+void saveDataFromVectorToFile(string fileName, vector<string> vFileContent);
 
 
 
-void LoadDataFromFileToVector(string fileName, vector<string> &vFileContent)
+void loadDataFromFileToVector(string fileName, vector<string> &vFileContent)
 {
     fstream myFile;
     myFile.open(fileName, ios::in); // read mode
@@ -22,20 +22,21 @@ void LoadDataFromFileToVector(string fileName, vector<string> &vFileContent)
     myFile.close();
 }
 
-void DeleteVectorRecord(string fileName ,string DeletedElement)
+//src means any string user wanna update and the dest is the value in which replace the src value
+void updateVectorRecord(string fileName , string record, string updatedRecord)
 {
     vector<string> vFileContent;
-    LoadDataFromFileToVector("MyFile.txt", vFileContent);
+    loadDataFromFileToVector("MyFile.txt", vFileContent);
     for (string &line : vFileContent)
     {
-        if (line == DeletedElement)
+        if (line == record)
         {
-            line = "";
+            line = updatedRecord;
         }
     }
-    SaveDataFromVectorToFile(fileName, vFileContent);
+    saveDataFromVectorToFile(fileName, vFileContent);
 }
-void SaveDataFromVectorToFile(string fileName, vector<string> vFileContent)
+void saveDataFromVectorToFile(string fileName, vector<string> vFileContent)
 {
     fstream myFile;
     myFile.open(fileName, ios::out); // write mode
@@ -54,7 +55,7 @@ void SaveDataFromVectorToFile(string fileName, vector<string> vFileContent)
     myFile.close();
 }
 
-void PrintFileContent(string FileName)
+void printFileContent(string FileName)
 {
     fstream MyFile;
     MyFile.open(FileName, ios::in); // read Mode
@@ -76,12 +77,12 @@ int main()
     // TODO SAVE THE UPDATED VECTOR TO THE FILE
 
     cout << "File Content Before Delete.\n";
-    PrintFileContent("MyFile.txt");
+    printFileContent("MyFile.txt");
 
-    DeleteVectorRecord("MyFile.txt", "D7moni");
+    updateVectorRecord("MyFile.txt", "D7moni", "Ghadah AlQahtani");
 
     cout << "\n\nFile Content After Delete.\n";
-    PrintFileContent("MyFile.txt");
+    printFileContent("MyFile.txt");
 
     return 0;
 }
